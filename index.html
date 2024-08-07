@@ -15,7 +15,7 @@
     }
 
     h1 {
-      margin-bottom: 10px; /* Adjust the margin as needed */
+      margin-bottom: 20px;
       color: var(--title-color); /* Set title color */
     }
 
@@ -101,13 +101,22 @@
       color: gray; 
       margin-bottom: 20px; /* Add some margin */
     }
+
+    /* Style for the main content area */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 50vh; /* Adjust the height as needed */
+    }
   </style>
 </head>
 <body>
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    <h1 id="logo">AlexWeb</h1> 
-    <p class="version">AlexWeb privateload 1.0</p> 
+  <h1 id="logo">AlexWeb</h1> 
+  <p class="version">AlexWeb privateload 1.0</p> 
 
+  <div class="content"> 
     <form id="searchForm">
       <input type="text" id="searchInput" placeholder="Search the web...">
       <button type="submit">Search</button>
