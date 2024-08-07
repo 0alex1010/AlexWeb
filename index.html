@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AlexWeb Search</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: var(--background-color); /* Set background color */
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: var(--title-color); /* Set title color */
+    }
+
+    #searchForm {
+      display: flex;
+      border-radius: 5px;
+      overflow: hidden; /* Hide the input box's overflow for rounded corners */
+      background-color: var(--form-background-color); /* Set form background color */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #searchInput {
+      border: none;
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+      color: var(--input-color); /* Set input text color */
+    }
+
+    button {
+      background-color: var(--button-background-color); /* Set button background color */
+      color: var(--button-text-color); /* Set button text color */
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #colorPicker {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .color-option {
+      padding: 8px 12px;
+      margin: 5px 0;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .color-option.red { 
+      background-color: red;
+      color: white; 
+    }
+
+    .color-option.blue { 
+      background-color: blue;
+      color: white; 
+    }
+
+    .color-option.green { 
+      background-color: green;
+      color: white; 
+    }
+
+    .color-option.default {
+      background-color: white; 
+      color: red; 
+    }
+
+    .version {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="logo">AlexWeb</h1>
+  <p class="version">AlexWeb Public 1.0</p> <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Search the web...">
+    <button type="submit">Search</button>
+  </form>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <button id="colorPickerButton"><i class="fas fa-palette"></i> Change Colors</button>
+  <div id="colorPicker" class="hidden">
+    <div class="color-option default" data-color="default">Default</div>
+    <div class="color-option red" data-color="red">Red</div>
+    <div class="color-option blue" data-color="blue">Blue</div>
+    <div class="color-option green" data-color="green">Green</div>
+  </div>
+
+  <footer>
+    <p>AlexWeb is a project by Alex using DuckDuckGo. DuckDuckGo is owned by DuckDuckGo, Inc.</p>
+  </footer>
+
+  <script>
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const colorPickerButton = document.getElementById('colorPickerButton');
+    const colorPicker = document.getElementById('colorPicker');
+    const colorOptions = document.querySelectorAll('.color-option');
+    const logo = document.getElementById('logo'); // Get the logo element
+
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault(); 
+      const query = searchInput.value;
+      window.location.href = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
+    });
+
+    colorPickerButton.addEventListener('click', () => {
+      colorPicker.classList.toggle('hidden');
+    });
+
+    colorOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const selectedColor = option.dataset.color;
+        if (selectedColor === 'default') {
+          document.documentElement.style.setProperty('--background-color', 'white');
+          document.documentElement.style.setProperty('--title-color', 'red');
+          document.documentElement.style.setProperty('--form-background-color', '#f0f0f0'); 
+          document.documentElement.style.setProperty('--input-color', '#333'); 
+          document.documentElement.style.setProperty('--button-background-color', 'red');
+          document.documentElement.style.setProperty('--button-text-color', 'white');
+        } else if (selectedColor === 'red') { // Update logo color when "Red" is selected
+          document.documentElement.style.setProperty('--background-color', 'red');
+          document.documentElement.style.setProperty('--title-color', 'black'); 
+          document.documentElement.style.setProperty('--form-background-color', 'white'); 
+          document.documentElement.style.setProperty('--input-color', 'black'); 
+          document.documentElement.style.setProperty('--button-background-color', 'white');
+          document.documentElement.style.setProperty('--button-text-color', 'black');
+        } else {
+          // Update CSS variables based on the selectedColor
+          document.documentElement.style.setProperty('--background-color', selectedColor); // Example
+          // Update other CSS variables as needed
+        }
+        colorPicker.classList.add('hidden'); // Close the pop-up
+      });
+    });
+
+    // Set default colors on page load
+    document.documentElement.style.setProperty('--background-color', 'white');
+    document.documentElement.style.setProperty('--title-color', 'red');
+    document.documentElement.style.setProperty('--form-background-color', '#f0f0f0'); 
+    document.documentElement.style.setProperty('--input-color', '#333'); 
+    document.documentElement.style.setProperty('--button-background-color', 'red');
+    document.documentElement.style.setProperty('--button-text-color', 'white');
+  </script>
+</body>
+</html>
